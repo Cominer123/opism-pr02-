@@ -22,6 +22,8 @@
 ### Завдання A.1. Формування запиту вручну
 
 **Команда:**
+
+```powershell
 $d = "w3.org"
 $c = New-Object System.Net.Sockets.TcpClient($d, 80)
 $s = $c.GetStream()
@@ -30,22 +32,20 @@ $w.Write("GET / HTTP/1.1`r`nHost: $d`r`nConnection: close`r`n`r`n")
 $w.Flush()
 (New-Object System.IO.StreamReader($s)).ReadToEnd()
 $c.Close()
-```powershell
-
 ```
 
 **Набраний запит:**
+
+```http
 GET / HTTP/1.1
 Host: w3.org
 Connection: close
-```http
 
 ```
 
 **Відповідь:**
-PS C:\Users\comin> $w.Write("GET / HTTP/1.1`r`nHost: $d`r`nConnection: close`r`n`r`n")
-PS C:\Users\comin> $w.Flush()
-PS C:\Users\comin> (New-Object System.IO.StreamReader($s)).ReadToEnd()
+
+```text
 HTTP/1.1 301 Moved Permanently
 Date: Fri, 27 Nov 2026 15:56:48 GMT
 Content-Type: text/html; charset=UTF-8
@@ -68,13 +68,13 @@ a7
 </html>
 
 0
-```text
-
 ```
 
 ### Завдання A.2. Запит без поля Host у версії 1.1
 
 **Команда:**
+
+```powershell
 $c = New-Object System.Net.Sockets.TcpClient($d, 80)
 $s = $c.GetStream()
 $w = New-Object System.IO.StreamWriter($s)
@@ -82,11 +82,11 @@ $w.Write("GET / HTTP/1.1`r`nConnection: close`r`n`r`n")
 $w.Flush()
 (New-Object System.IO.StreamReader($s)).ReadToEnd()
 $c.Close()
-```powershell
-
 ```
 
 **Вивід:**
+
+```text
 HTTP/1.1 400 Bad Request
 Server: cloudflare
 Date: Fri, 27 Nov 2026 15:59:46 GMT
@@ -102,8 +102,6 @@ CF-RAY: -
 <hr><center>cloudflare</center>
 </body>
 </html>
-```text
-
 ```
 
 ### Завдання A.3. Вплив поля Host на відповідь сервера
